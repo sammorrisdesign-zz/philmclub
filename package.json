@@ -1,0 +1,13 @@
+{
+  "name": "philmclub",
+  "version": "1.0.0",
+  "description": "Node scripts that randomise the next film for Philm Klubb",
+  "homepage": "https://github.com/sammorrisdesign/philmclub",
+  "engines": {
+    "node": ">= 0.10.0"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "jit-grunt": "^0.9.1"
+  }
+}
