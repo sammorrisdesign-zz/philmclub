@@ -1,6 +1,6 @@
 // Imported Modules
-var spreadsheet = require('google-spreadsheet');
 var fs = require('fs');
+var spreadsheet = require('google-spreadsheet');
 
 // Get Login Details
 var auth = JSON.parse(fs.readFileSync('../google.json', 'utf8'));
@@ -12,7 +12,6 @@ var data = [];
 sheet.setAuth(auth.email, auth.password, function(err) {
     sheet.getRows(1, function(err, rows){
         for(i = 4; i < rows.length; i++) {
-            // console.log(rows[i]);
             var row = {
                 "filmName"  : rows[i]['title'],
                 "ratings"   : {
