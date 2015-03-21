@@ -7,6 +7,8 @@
     "node": ">= 0.10.0"
   },
   "devDependencies": {
+    "fs": "0.0.2",
+    "google-spreadsheet": "^0.2.8",
     "grunt": "^0.4.5",
     "jit-grunt": "^0.9.1"
   }
