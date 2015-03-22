@@ -1,6 +1,7 @@
 // Imported modules (In order of use)
 var fs = require('fs');
 var spreadsheet = require('google-spreadsheet');
+var movieArt = require('movie-art');
 var handlebars = require('handlebars');
 
 // Prepare the template
@@ -17,8 +18,10 @@ var data = [];
 sheet.setAuth(auth.email, auth.password, function(err) {
     sheet.getRows(1, function(err, rows){
         for(i = 1; i < rows.length; i++) {
+            var titleInfo = rows[i]['title'].split(" (");
             var row = {
-                "filmName"  : rows[i]['title'],
+                "filmName"  : titleInfo[0],
+                "year"      : titleInfo[1].replace(')', ''),
                 "ratings"   : {
                     "mario" : rows[i]['mário'].length,
                     "frank" : rows[i]['frank'].length,
@@ -50,9 +53,11 @@ sheet.setAuth(auth.email, auth.password, function(err) {
             if (data[randomRow].watchable > watchableMedian) {
                 getFilm(watchableMedian);
             } else {
-                template = template(data[randomRow]);
-                
-                fs.writeFile("../index.html", template);
+                movieArt(data[randomRow].filmName, data[randomRow].year, 'w342', function(err, url) {
+                    data[randomRow].poster = url;
+                    template = template(data[randomRow]);
+                    fs.writeFile("../index.html", template);
+                });
             }
         }
 
