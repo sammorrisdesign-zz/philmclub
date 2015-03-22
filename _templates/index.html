@@ -15,6 +15,30 @@
     <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700' rel='stylesheet' type='text/css'>
 </head>
 <body>
-    <h1>This week we're watching... {{filmName}}</h1>
+    <div class="container">
+        <header class="header">
+            <h2 class="header__sub sub">The first rule of Philm Klubb is don't make Fight Club Jokes</h2>
+            <h1 class="header__title title">Philm Klubb</h1>
+        </header>
+        <main class="main">
+            <div class="main__info">
+                <div class="now-showing">
+                    <h2 class="now-showing__sub sub">Now Showing...</h2>
+                    <h1 class="now-showing__title title">{{ filmName }}</h1>
+                </div>
+                <div class="search">
+                    <h2 class="search__sub sub">Search On...</h2>
+                    <ul class="search-items">
+                        <li class="search-item">Netflix</li>
+                        <li class="search-item">Amazon Instant Video</li>
+                        <li class="search-item">Google</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="main__poster">
+                <img src="http://az624219.vo.msecnd.net/media/1004/newpaddinbton-blue-whishaw.jpg" />
+            </div>
+        </main>
+    </div>
 </body>
 </html>

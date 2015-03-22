@@ -3,5 +3,16 @@ $f-sans-serif: 'Open Sans Condensed', sans-serif;
 
 // Colours
 $c-accent: #f93;
-$c-background: mix($c-accent, #fff, 40%);
-$c-text: #666;
+$c-background: mix($c-accent, #fff, 20%);
+$c-text: #555;
+
+// Spacing
+$g-gutter: 10px;
+
+// Styling
+$s-border: 4px solid $c-accent;
+
+// Breakpoints
+$mq-breakpoints: (
+    mobile: 500px
+);

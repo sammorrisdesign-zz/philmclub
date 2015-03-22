@@ -1,0 +1,43 @@
+main {
+    border: $s-border;
+    border-top: 0;
+}
+
+.main__info,
+.main__poster {
+    @include box-sizing(border-box);
+
+    @include mq(mobile) {
+        width: 50%;
+        display: table-cell;
+        vertical-align: top;
+    }
+}
+
+.main__info {
+    @include mq(mobile) {
+        border-right: $s-border;
+    }
+
+    .now-showing,
+    .search {
+        padding: $g-gutter;
+    }
+
+    .now-showing {
+        min-height: 14em;
+    }
+
+    .search {
+        display: none;
+        border-top: $s-border;
+    }
+}
+
+.main__poster {
+    padding: $g-gutter;
+
+    img {
+        width: 100%;
+    }
+}
