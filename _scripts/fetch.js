@@ -1,11 +1,16 @@
-// Imported Modules
+// Imported modules (In order of use)
 var fs = require('fs');
 var spreadsheet = require('google-spreadsheet');
+var handlebars = require('handlebars');
 
-// Get Login Details
+// Prepare the template
+var html = fs.readFileSync('../_templates/index.html', 'utf8');
+var template = handlebars.compile(html);
+
+// Get login details
 var auth = JSON.parse(fs.readFileSync('../google.json', 'utf8'));
 
-// Get Spreadsheet Data
+// Get spreadsheet data
 var sheet = new spreadsheet('1HKhrlsLLeEYmI40Tv9U8Y0JvsHSXaFlmh9Ioe4DKC6Y');
 var data = [];
 
@@ -45,7 +50,9 @@ sheet.setAuth(auth.email, auth.password, function(err) {
             if (data[randomRow].watchable > watchableMedian) {
                 getFilm(watchableMedian);
             } else {
-                console.log(data[randomRow].filmName);
+                template = template(data[randomRow]);
+                
+                fs.writeFile("../index.html", template);
             }
         }
 
