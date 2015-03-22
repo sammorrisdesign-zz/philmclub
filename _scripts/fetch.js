@@ -11,7 +11,7 @@ var data = [];
 
 sheet.setAuth(auth.email, auth.password, function(err) {
     sheet.getRows(1, function(err, rows){
-        for(i = 4; i < rows.length; i++) {
+        for(i = 1; i < rows.length; i++) {
             var row = {
                 "filmName"  : rows[i]['title'],
                 "ratings"   : {
@@ -20,10 +20,39 @@ sheet.setAuth(auth.email, auth.password, function(err) {
                     "sophie": rows[i]['sophie'].length,
                     "sam"   : rows[i]['sam'].length,
                     "chris" : rows[i]['chris'].length
+                },
+                "watchable" : 0
+            }
+
+            for (rating in row.ratings) {
+                if (row.ratings[rating] > 0 ) {
+                    row.watchable++;
                 }
             }
             data.push(row);
         }
+
+        var watchableMedian = 0,
+            numberOfFilms = data.length - 1;
+
+        for(i = 0; i < numberOfFilms; i++) {
+            watchableMedian += data[i].watchable;
+        }
+        watchableMedian = Math.floor(watchableMedian / numberOfFilms);
+
+        function getFilm(watchableMedian) {
+            var randomRow = Math.floor((Math.random() * numberOfFilms) + 1);
+            if (data[randomRow].watchable > watchableMedian) {
+                console.log(data[randomRow].watchable + " people have already seen " + data[randomRow].filmName + " so let's skip that for now");
+                getFilm(watchableMedian);
+            } else {
+                console.log("Let's watch " + data[randomRow].filmName);
+            }
+        }
+
+        getFilm(watchableMedian);
+
+//         console.log(data[randomRow]);
     });
 });
 
