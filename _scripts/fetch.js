@@ -43,16 +43,13 @@ sheet.setAuth(auth.email, auth.password, function(err) {
         function getFilm(watchableMedian) {
             var randomRow = Math.floor((Math.random() * numberOfFilms) + 1);
             if (data[randomRow].watchable > watchableMedian) {
-                console.log(data[randomRow].watchable + " people have already seen " + data[randomRow].filmName + " so let's skip that for now");
                 getFilm(watchableMedian);
             } else {
-                console.log("Let's watch " + data[randomRow].filmName);
+                console.log(data[randomRow].filmName);
             }
         }
 
         getFilm(watchableMedian);
-
-//         console.log(data[randomRow]);
     });
 });
 
