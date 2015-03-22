@@ -29,3 +29,7 @@ node_modules
 
 # Google login
 google.json
+
+.DS_Store
+./index.html
+./style.css
