@@ -31,5 +31,5 @@ node_modules
 google.json
 
 .DS_Store
-./index.html
-./style.css
+/index.html
+/style.css
