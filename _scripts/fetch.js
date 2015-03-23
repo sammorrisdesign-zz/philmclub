@@ -14,7 +14,6 @@ var detailsLocation = '../google.json';
 if (fs.existsSync(detailsLocation)) {
     var auth = JSON.parse(fs.readFileSync('../google.json', 'utf8'));
 } else {
-    console.log("no auth");
     var auth = {
         "email" : readlineSync.question('Google Username (email) :'),
         "password" : readlineSync.question('Password :', {noEchoBack: true})
