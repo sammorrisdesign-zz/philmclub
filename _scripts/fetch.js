@@ -1,5 +1,6 @@
 // Imported modules (In order of use)
 var fs = require('fs');
+var readlineSync = require('readline-sync');
 var spreadsheet = require('google-spreadsheet');
 var movieArt = require('movie-art');
 var handlebars = require('handlebars');
@@ -9,7 +10,16 @@ var html = fs.readFileSync('../_templates/index.html', 'utf8');
 var template = handlebars.compile(html);
 
 // Get login details
-var auth = JSON.parse(fs.readFileSync('../google.json', 'utf8'));
+var detailsLocation = '../google.json';
+if (fs.existsSync(detailsLocation)) {
+    var auth = JSON.parse(fs.readFileSync('../google.json', 'utf8'));
+} else {
+    console.log("no auth");
+    var auth = {
+        "email" : readlineSync.question('Google Username (email) :'),
+        "password" : readlineSync.question('Password :', {noEchoBack: true})
+    };
+};
 
 // Get spreadsheet data
 var sheet = new spreadsheet('1HKhrlsLLeEYmI40Tv9U8Y0JvsHSXaFlmh9Ioe4DKC6Y');
@@ -20,16 +30,16 @@ sheet.setAuth(auth.email, auth.password, function(err) {
         for(i = 1; i < rows.length; i++) {
             var titleInfo = rows[i]['title'].split(" (");
             var row = {
-                "filmName"  : titleInfo[0],
-                "year"      : titleInfo[1].replace(')', ''),
-                "ratings"   : {
-                    "mario" : rows[i]['mário'].length,
-                    "frank" : rows[i]['frank'].length,
-                    "sophie": rows[i]['sophie'].length,
-                    "sam"   : rows[i]['sam'].length,
-                    "chris" : rows[i]['chris'].length
+                'filmName'  : titleInfo[0],
+                'year'      : titleInfo[1].replace(')', ''),
+                'ratings'   : {
+                    'mario' : rows[i]['mário'].length,
+                    'frank' : rows[i]['frank'].length,
+                    'sophie': rows[i]['sophie'].length,
+                    'sam'   : rows[i]['sam'].length,
+                    'chris' : rows[i]['chris'].length
                 },
-                "watchable" : 0
+                'watchable' : 0
             }
 
             for (rating in row.ratings) {
@@ -56,7 +66,7 @@ sheet.setAuth(auth.email, auth.password, function(err) {
                 movieArt(data[randomRow].filmName, data[randomRow].year, 'w342', function(err, url) {
                     data[randomRow].poster = url;
                     template = template(data[randomRow]);
-                    fs.writeFile("../index.html", template);
+                    fs.writeFile('../index.html', template);
                 });
             }
         }
