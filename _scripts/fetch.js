@@ -34,7 +34,7 @@ sheet.setAuth(auth.email, auth.password, function(err) {
                 'ratings'   : {
                     'mario' : rows[i]['mário'].length,
                     'frank' : rows[i]['frank'].length,
-                    'sophie': rows[i]['sophie'].length,
+                    'ben'   : rows[i]['ben'].length,
                     'sam'   : rows[i]['sam'].length,
                     'chris' : rows[i]['chris'].length
                 },
