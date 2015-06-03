@@ -9,21 +9,6 @@ var handlebars = require('handlebars');
 var html = fs.readFileSync('../_templates/index.html', 'utf8');
 var template = handlebars.compile(html);
 
-// Get login details
-var detailsLocation = '../google.json';
-if (fs.existsSync(detailsLocation)) {
-    var auth = JSON.parse(fs.readFileSync('../google.json', 'utf8'));
-} else {
-    var auth = {
-        "email" : readlineSync.question('Google Username (email) :'),
-        "password" : readlineSync.question('Password :', {noEchoBack: true})
-    };
-};
-
-// Get spreadsheet data
-var sheet = new spreadsheet('1HKhrlsLLeEYmI40Tv9U8Y0JvsHSXaFlmh9Ioe4DKC6Y');
-var data = [];
-
 // Override while it's broken
 
 data = {
@@ -42,6 +27,21 @@ movieArt(data.filmName, data.year, 'w342', function(err, url) {
 return;
 
 // End override
+
+// Get login details
+var detailsLocation = '../google.json';
+if (fs.existsSync(detailsLocation)) {
+    var auth = JSON.parse(fs.readFileSync('../google.json', 'utf8'));
+} else {
+    var auth = {
+        "email" : readlineSync.question('Google Username (email) :'),
+        "password" : readlineSync.question('Password :', {noEchoBack: true})
+    };
+};
+
+// Get spreadsheet data
+var sheet = new spreadsheet('1HKhrlsLLeEYmI40Tv9U8Y0JvsHSXaFlmh9Ioe4DKC6Y');
+var data = [];
 
 sheet.setAuth(auth.email, auth.password, function(err) {
     sheet.getRows(1, function(err, rows){
