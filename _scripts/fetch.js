@@ -24,6 +24,25 @@ if (fs.existsSync(detailsLocation)) {
 var sheet = new spreadsheet('1HKhrlsLLeEYmI40Tv9U8Y0JvsHSXaFlmh9Ioe4DKC6Y');
 var data = [];
 
+// Override while it's broken
+
+data = {
+    'filmName'  : 'A Streetcar Named Desire',
+    'year'      : '1951'
+};
+
+console.log(data.filmName);
+
+movieArt(data.filmName, data.year, 'w342', function(err, url) {
+    data.poster = url;
+    template = template(data);
+    fs.writeFile('../index.html', template);
+});
+
+return;
+
+// End override
+
 sheet.setAuth(auth.email, auth.password, function(err) {
     sheet.getRows(1, function(err, rows){
         for(i = 1; i < rows.length; i++) {
